@@ -21,8 +21,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage }); // 파일 업로드 처리 미들웨어
 
-// 사용자가 서버 주소:8080 접속 시 보여줄 페이지
-app.get('/', (req, res) => {
+// 사용자가 서버 주소/upload 접속 시 보여줄 페이지
+app.get('/upload', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 app.post('/upload', upload.single('file'), (req, res) => {
     res.redirect('/upload');
 });
+
 
 const port = 80; // 서버 포트 설정
 const server = app.listen(port, () => {
