@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const multer = require('multer');
+const fs = require('fs')
 
 // multer 라이브러리 사용
 const storage = multer.diskStorage({
@@ -18,11 +19,10 @@ const storage = multer.diskStorage({
     }
 });
 
-
 const upload = multer({ storage }); // 파일 업로드 처리 미들웨어
 
 // 사용자가 서버 주소/upload 접속 시 보여줄 페이지
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
@@ -31,6 +31,17 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.redirect('/');
 });
 
+app.get('/filenames', (req, res) => {
+    const fileNameList = getFileNames();
+    res.json(fileNameList);
+});
+
+// 업로드된 파일명 가져오기
+function getFileNames() {
+    const uploadDirectory = 'uploads';
+    const files = fs.readdirSync(uploadDirectory);
+    return files.filter(file => file !== '.' && file !== '..');
+}
 
 const port = 80; // 서버 포트 설정
 const server = app.listen(port, () => {

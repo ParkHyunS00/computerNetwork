@@ -9,5 +9,27 @@
     <input type="file" name="file">
     <input type="submit" value="업로드">
   </form>
+  
+  <h2>업로드된 파일 목록:</h2>
+  <ul id="file-name-list">
+  </ul>
+  <script>
+    function setFileNames() { // uploads 디렉토리에 존재하는 파일명들 리스트에 추가
+      fetch('/filenames')
+        .then(response => response.json())
+        .then(data => {
+          const fileList = document.getElementById('file-name-list');
+          fileList.innerHTML = '';
+          data.forEach(filename => {
+            const listItem = document.createElement('li');
+            listItem.textContent = filename;
+            fileList.appendChild(listItem);
+          });
+        });
+    }
+
+    // 페이지 로딩 시 파일 목록 업데이트
+    setFileNames();
+  </script>
 </body>
 </html>
