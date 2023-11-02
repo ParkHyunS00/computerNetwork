@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 // 사용자가 파일 업로드 시 파일 저장 후 기존 페이지로 리다이렉트
 app.post('/upload', upload.single('file'), (req, res) => {
-    res.redirect('/');
+    res.redirect('/upload');
 });
 
 const port = 80; // 서버 포트 설정
