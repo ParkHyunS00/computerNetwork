@@ -31,7 +31,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     res.redirect('/');
 });
 
-const port = 5000; // 서버 포트 설정
+const port = 80; // 서버 포트 설정
 const server = app.listen(port, () => {
     console.log('Listening on', port);
 });
