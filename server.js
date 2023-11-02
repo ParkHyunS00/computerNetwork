@@ -22,13 +22,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage }); // 파일 업로드 처리 미들웨어
 
 // 사용자가 서버 주소/upload 접속 시 보여줄 페이지
-app.get('/upload', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
 
 // 사용자가 파일 업로드 시 파일 저장 후 기존 페이지로 리다이렉트
 app.post('/upload', upload.single('file'), (req, res) => {
-    res.redirect('/upload');
+    res.redirect('/');
 });
 
 
